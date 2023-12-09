@@ -28,19 +28,20 @@ model Post {
 
 // Necessary for Next auth
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? // @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id                       String  @id @default(cuid())
+    userId                   String
+    type                     String
+    provider                 String
+    providerAccountId        String
+    refresh_token            String? // @db.Text
+    refresh_token_expires_in Int?
+    access_token             String? // @db.Text
+    expires_at               Int?
+    token_type               String?
+    scope                    String?
+    id_token                 String? // @db.Text
+    session_state            String?
+    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
 }
@@ -70,4 +71,40 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Firms {
+    id                String    @id @default(cuid())
+    name              String //公司名称
+    office            String? //岗位
+    finishSchoolYear  String? //毕业后多少年
+    workYear          String? //在该公司工作多少年
+    salaryYear        String? //一年几薪
+    insure            String? //五险一金
+    insureRemark      String? //五险一金备注
+    subsidy           String? //补助
+    salary            String? //实际薪资 k
+    vantage           String? //优点
+    drawbacks         String? //缺点
+    RecommendedOrNot  String? //是否推荐
+    lead              String? //领导
+    whetherDoubleRest String? //是否双休
+    workStartTime     String?
+    workEndTime       String?
+    remark            String?
+    city              String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    createdById String
+}
+
+
+model PostTest {
+    id        Int      @id @default(autoincrement())
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    createdById String
+
 }

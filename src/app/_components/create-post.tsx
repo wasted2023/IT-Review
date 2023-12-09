@@ -9,6 +9,15 @@ export function CreatePost() {
   const router = useRouter();
   const [name, setName] = useState("");
 
+  const myQuery =  api.firms.timeLine.useInfiniteQuery(
+    {
+      limit: 10,
+    },
+    {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    },
+  );
+
   const createPost = api.post.create.useMutation({
     onSuccess: () => {
       router.refresh();

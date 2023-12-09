@@ -5,6 +5,9 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+// import EmailProvider from "next-auth/providers/email";
+import GitHubProvider from "next-auth/providers/github";
+
 
 import { env } from "~/env.mjs";
 import { db } from "~/server/db";
@@ -51,6 +54,15 @@ export const authOptions: NextAuthOptions = {
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
+    GitHubProvider({
+      clientId: env.GITHUB_ID,
+      clientSecret: env.GITHUB_SECRET
+    })
+
+    // EmailProvider({
+    //   server: env.EMAIL_SERVER,
+    //   from: env.EMAIL_FROM
+    // }),
     /**
      * ...add more providers here.
      *
